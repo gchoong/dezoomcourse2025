@@ -13,11 +13,3 @@ services:
       timeout: 10s
       retries: 10
 
-docker run -it \
-  -e POSTGRES_DB=ny_taxi \
-  -e POSTGRES_USER=postgres \
-  -e POSTGRES_PASSWORD=postgres \
-  -v ./ny_taxi_postgres_data:/var/lib/postgresql/data \
-  -p 5432:5432 \
-  --name pgdatabase \
-  postgres:17-alpine
