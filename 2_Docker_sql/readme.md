@@ -4,6 +4,11 @@
 
 ## Answer: 24.3.1
 
+# Question 2
+
+postgresql:5433.
+Although there is a 5432, we named it as 5433
+
 # Question 3
 
 ## Work
@@ -39,6 +44,17 @@ group by
 
 ## Answer
 East Harlem North, East Harlem South, Morningside Heights
+
+## Question 6 
+
+## Work 
+
+select "DOLocationID",max(tip_amount) as max_tip from green_taxi_data where "PULocationID" = '74' group by "DOLocationID" order by max_tip desc 
+## Answer JFK Airport
+
+# Question 7
+
+terraform init, apply, -auto-approve, terraform destroy
 
 # Commands
 ## Creating the postgres database in docker and also adding in the network configs 
