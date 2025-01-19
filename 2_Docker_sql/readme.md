@@ -82,4 +82,26 @@ docker run -it \
   --network=pg-network \
   --name pgadmin \
   dpage/pgadmin4
+
+## Testing Python Script for ingesting data
+
+need to do in bash
+URL = "https://github.com/DataTalksClub/nyc-tlc-data/releases/download/green/green_tripdata_2019-10.csv.gz"
+
+python ingest_data.py --user=postgres --password=postgres --host=localhost  --port=5432 --db=ny_taxi  --table_name=green_taxi_data  --url=${URL}
+
+## Build Dockerized container 
+docker build -t taxi_ingest:v001 .
+
+## Run Dockerized Container
+docker run -it \
+--network=pg-network \
+  taxi_ingest:v001 \
+    --user=postgres \
+    --password=postgres \
+    --host=localhost \
+    --port=5432 \
+    --db=ny_taxi \ 
+    --table_name=green_taxi_data \
+    --url=${URL} \
   
