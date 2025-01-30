@@ -8,14 +8,14 @@ terraform {
 }
 
 provider "google" {
-  credentials = "/Users/gchoong/Projects/dezoomcourse2025/tf-demo/keys/my_creds.json"
-  project = "intense-dolphin-448915-e9"
-  region  = "us-central1"
+  credentials = file(var.credentials)
+  project     = var.project
+  region      = var.region
 }
 
 resource "google_storage_bucket" "demo-bucket" {
-  name          = "intense-dolphin-448915-e9-tf-bucket"
-  location      = "US"
+  name          = var.gcs_bucket_name
+  location      = var.location
   force_destroy = true
 
   lifecycle_rule {
@@ -36,3 +36,8 @@ resource "google_storage_bucket" "demo-bucket" {
     }
   }
 }
+
+resource "google_bigquery_dataset" "demo_dataset" {
+  dataset_id = var.bq_dataset_name
+  location   = var.location
+} 
