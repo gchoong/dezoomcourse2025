@@ -20,6 +20,7 @@ services:
       retries: 10
 
   kestra:
+    env_file: .env_encoded
     image: kestra/kestra:latest
     pull_policy: always
     user: "root"
