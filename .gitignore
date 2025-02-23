@@ -38,3 +38,4 @@ terraform.rc
 
 *.json
 *.env_encoded
+*.toml
