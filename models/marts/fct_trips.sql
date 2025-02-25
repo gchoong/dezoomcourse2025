@@ -22,7 +22,10 @@ trips_unioned as (
 dim_zones as (
     select * from {{ ref('dim_zones') }}
     where borough != 'Unknown'
-)
+),
+final as (
+
+
 select trips_unioned.tripid, 
     trips_unioned.vendor_id, 
     trips_unioned.service_type,
@@ -47,9 +50,16 @@ select trips_unioned.tripid,
     trips_unioned.improvement_surcharge, 
     trips_unioned.total_amount, 
     trips_unioned.payment_type, 
-    trips_unioned.payment_type_description
+    trips_unioned.payment_type_description,
+    date_trunc(cast(trips_unioned.pickup_datetime as date),year) as fy_year,
+    EXTRACT(MONTH FROM trips_unioned.pickup_datetime) as fy_month,
+    EXTRACT(QUARTER FROM trips_unioned.pickup_datetime) as fy_quarter,
+
 from trips_unioned
 inner join dim_zones as pickup_zone
 on trips_unioned.pickup_locationid = pickup_zone.locationid
 inner join dim_zones as dropoff_zone
 on trips_unioned.dropoff_locationid = dropoff_zone.locationid
+)
+select * from final
+where fy_year in ('2019-01-01','2020-01-01')

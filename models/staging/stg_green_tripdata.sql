@@ -20,8 +20,8 @@ select
     {{ dbt.safe_cast("do_location_id", api.Column.translate_type("integer")) }} as dropoff_locationid,
     
     -- timestamps
-    cast(lpep_pickup_datetime as timestamp) as pickup_datetime,
-    cast(lpep_dropoff_datetime as timestamp) as dropoff_datetime,
+    PARSE_TIMESTAMP('%Y-%m-%d %H:%M:%S', lpep_pickup_datetime) as pickup_datetime,
+    PARSE_TIMESTAMP('%Y-%m-%d %H:%M:%S', lpep_dropoff_datetime) as dropoff_datetime,
     
     -- trip info
     store_and_fwd_flag,
